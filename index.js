@@ -9,12 +9,15 @@ app.use(express.json());
 function randomPrice(min, max) {
     return +(Math.random() * (max - min) + min).toFixed(2);
 }
-
+function randomRequestId() {
+    return 'req-' + Math.floor(100000 + Math.random() * 900000);
+}
 function buildSeatBid(imps, seatName) {
     let seats = [];
 
     const bids = imps.map((imp, index) => {
-        const bidId = `bid-${seatName}-00${index+1}`;
+        const bidId = `bid-${seatName}-${Math.floor(1000 + Math.random() * 9000)}`;
+
         const price = randomPrice(0.5, 1.5);
 
         const width = imp.banner?.format?.[0]?.w || 300;
@@ -47,7 +50,7 @@ app.post('/openrtb2/auction', (req, res) => {
     const imps = req.body.imp || [];
 
     const bidResponse = {
-        id: req.body.id || "req-123456",
+        id: randomRequestId(),
         seatbid: buildSeatBid(imps, "bidmatic"),
         cur: "USD"
     };
