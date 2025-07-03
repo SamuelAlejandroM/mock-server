@@ -5,7 +5,7 @@ const PORT = 8081;
 
 app.use(express.json());
 
-// Genera un número aleatorio entre min y max con 2 decimales
+
 function randomPrice(min, max) {
     return +(Math.random() * (max - min) + min).toFixed(2);
 }
